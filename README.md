@@ -1,6 +1,8 @@
 # odotaapi
 Java parser for Opendota API
 
+You will need to get Gson lib from [here](https://maven-badges.herokuapp.com/maven-central/com.google.code.gson/gson).
+
 Main class is where i test, you can get data from odota using
 
 ```java
