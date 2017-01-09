@@ -21,23 +21,32 @@ public class ODotaAPI {
 	public ODotaAPI() {
 		gson = new Gson();
 	}
+	
 	public AccountDetail getPlayer(long id) throws JsonSyntaxException, Exception {
 		return gson.fromJson(readUrl(API_HOST + "players/" + id), AccountDetail.class);
 	}
+	
+	public WinLose getWinLose(long id) throws JsonSyntaxException, Exception{return getWinLose(id, new MatchFilter());}
 	public WinLose getWinLose(long id, MatchFilter filter) throws JsonSyntaxException, Exception {
 		return gson.fromJson(readUrl(API_HOST + "players/" + id + "/wl/" + filter.getFilter()), WinLose.class);
 	}
+
+	public List<MatchPreview> getMatches(long id) throws JsonSyntaxException, Exception{return getMatches(id, new MatchFilter());}
 	public List<MatchPreview> getMatches(long id, MatchFilter filter) throws JsonSyntaxException, Exception {
 		Type listType = new TypeToken<List<MatchPreview>>(){}.getType();
 		return gson.fromJson(readUrl(API_HOST + "players/" + id + "/matches/" + filter.getFilter()), listType);
 	}
+
+	public List<HeroDetail> getHeroes(long id) throws JsonSyntaxException, Exception{return getHeroes(id, new MatchFilter());}
 	public List<HeroDetail> getHeroes(long id, MatchFilter filter) throws JsonSyntaxException, Exception {
 		Type listType = new TypeToken<List<HeroDetail>>(){}.getType();
 		return gson.fromJson(readUrl(API_HOST + "players/" + id + "/heroes/" + filter.getFilter()), listType);
 	}
+
 	public MatchDetail getMatch(long id) throws JsonSyntaxException, Exception {
 		return gson.fromJson(readUrl(API_HOST + "matches/" + id), MatchDetail.class);
 	}
+	///util
 	private String readUrl(String urlString) throws Exception {
 		System.out.println("Requesting " + urlString);
 	    BufferedReader reader = null;
