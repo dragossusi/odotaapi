@@ -10,6 +10,8 @@ import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
 import com.rachierudragos.odota.account.AccountDetail;
+import com.rachierudragos.odota.account.PlayerFriend;
+import com.rachierudragos.odota.account.PlayerRecords;
 import com.rachierudragos.odota.filter.MatchFilter;
 import com.rachierudragos.odota.hero.HeroDetail;
 import com.rachierudragos.odota.match.MatchDetail;
@@ -42,10 +44,20 @@ public class ODotaAPI {
 		Type listType = new TypeToken<List<HeroDetail>>(){}.getType();
 		return gson.fromJson(readUrl(API_HOST + "players/" + id + "/heroes/" + filter.getFilter()), listType);
 	}
-
+	
+	public List<PlayerFriend> getPeers(long id) throws JsonSyntaxException, Exception {
+		Type listType = new TypeToken<List<PlayerFriend>>(){}.getType();
+		return gson.fromJson(readUrl(API_HOST + "players/" + id + "/peers/"),listType);
+	}
+	
+	public PlayerRecords getRecords(long id) throws JsonSyntaxException, Exception {
+		return gson.fromJson(readUrl(API_HOST + "players/" + id + "/records"),PlayerRecords.class);
+	}
+	
 	public MatchDetail getMatch(long id) throws JsonSyntaxException, Exception {
 		return gson.fromJson(readUrl(API_HOST + "matches/" + id), MatchDetail.class);
 	}
+	
 	///util
 	private String readUrl(String urlString) throws Exception {
 		System.out.println("Requesting " + urlString);
